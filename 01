@@ -1,0 +1,106 @@
+ORG 0
+    CLA
+CIF,    SKI
+    BUN CIF
+    INP
+    STA INPUT
+    LDA INPUT
+    STA arraged
+    CLA
+LOP1,
+    LDA arraged
+    CLE
+    CIL
+    STA arraged
+    ISZ CONST1
+    BUN LOP1
+    
+
+LOP2,
+    LDA arraged
+    CLE
+    CIL
+    STA arraged
+    CLA
+    LDA BCD
+
+	AND PARSE1
+	BSA CMP0
+
+	LDA BCD 
+	AND PARSE2
+	BSA CMP1
+	
+	LDA BCD
+	AND PARSE3
+	BSA CMP2
+
+	
+    CIL
+    STA BCD
+    ISZ CONST2
+    BUN LOP2 
+
+    HLT
+
+// IF GREATER THAN 5, ADD 3
+// X >= 5, ADD 3
+
+// BCD0
+CMP0,
+	CLE 
+	ADD N5
+	SNA  	// IF X<0 SKIP
+	ADD NUMBER8
+	BUN CMP0 I
+
+// BCD1
+CMP1,
+	CLE
+	ADD N240
+	SNA	// IF X<0 SKIP
+	ADD NUMBER288
+	BUN CMP1 I
+
+// BCD2
+CMP2,
+	CLE
+	ADD N3840
+	SNA	// IF X<0 SKIP
+	ADD NUMBER4608	
+	BUN CMP2 I
+	
+	
+		
+
+	
+
+    
+CONST1,  DEC -8
+CONST2, DEC -8
+CONST3, DEC 5
+BCD,    DEC 0
+INPUT,   DEC 0
+arraged,  DEC 0
+
+// NUMBERS TO ADD FOR COMPARE
+N5, DEC -5
+N240, DEC -240
+N3840, DEC -3840
+
+NUMBER8, DEC 8
+NUMBER288, DEC 288
+NUMBER4608, DEC 4608
+
+
+
+ISGREATER, DEC 0
+ 
+
+
+PARSE1, HEX F 		// CHANGE TO DEC
+PARSE2, HEX F0
+PARSE3, HEX F00	
+
+
+    END
